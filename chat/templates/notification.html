@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<div class="w-100 vh-100 d-flex flex-column justify-content-between" id="notifications">
+    <div class="d-flex align-items-center mt-3 p-3 chat-user">
+        <a href="{% url 'index'%}" class="text-decoration-none w-100 sm-title"><h4 class="ms-1 fw-bold fs-2">VTchat</h4></a>
+        <h5 class="ms-1 fw-bold fs-3 text-center w-100">Notifications</h5>
+        <div class="w-100 sm-title"></div>
+    </div>
+    <div class="my-3 mx-3 px-5 list-group flex-grow-1">
+        {% if notify|length > 0 %}
+            {% for n in notify %}
+            <li class="list-group-item d-sm-flex justify-content-between align-items-center gap-3 py-3">
+                <div class="d-flex align-items-center">
+                    <img src="{% static 'img/user.png' %}" alt="..." class="avatar-img rounded-circle" width="60" height="60">
+                    <div class="ms-2 mt-2 me-auto">
+                        <div class="fw-bold">{{n.source.username}}</div>
+                        <p>abc</p>
+                    </div>
+                </div>
+                <div class="ms-4 d-flex align-items-center">
+                <button class="btn btn-primary me-5 accept" data-id = {{n.source.id}}>Accept</button>
+                <button class="btn btn-secondary me-5 reject" data-id = {{n.source.id}}>Reject</button>
+                </div>
+            </li>
+            {% endfor %}
+        {% else %}
+            <div class="vh-100 d-flex align-items-center justify-content-center">
+                <p class="text-secondary fs-5 fw-bold">Empty Notifications</p>
+            </div>
+        {% endif %}
+    </div>
+    <div class="bottom-nav d-flex justify-content-around align-items-center py-2">
+        <i class="bi bi-bell-fill text-white fs-4 fw-bold">
+            <span class="badge bg-primary fs-6 rounded">{% if notify|length > 0 %}{{ notify|length }}{% endif %}</span>
+        </i>
+        <i class="bi bi-person-plus-fill text-white fs-4 fw-bold"></i>
+         
+        <a href="{% url 'logout' %}"><i class="bi bi-box-arrow-right text-white fs-4 fw-bold"></i></a>
+    </div>
+</div>
+
+{% endblock %}

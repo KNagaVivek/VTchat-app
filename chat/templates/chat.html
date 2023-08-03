@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<div class="w-100 ps-0 d-flex flex-column justify-content-between vh-100" id="chat-display">
+    <div class="d-flex align-items-center justify-content-between p-3 chat-user">
+        <a href="{% url 'index'%}" class="text-decoration-none w-100 sm-title"><h4 class="ms-1 fw-bold fs-2">VTchat</h4></a>
+        <div class="d-flex align-items-center me-4">
+            <div class="img-container">
+                <img src="{% if user_obj.profile_pic %}{{ user_obj.profile_pic.url }}{% else %}{% static 'img/user.png' %}{% endif %}" alt="..." class="avatar-img rounded-circle" width="50" height="50">
+                    
+                    <div class="status {% if user_obj.status %} active {% endif %} position-absolute"></div> </img>
+            </div>
+            <h5 class="ms-1 fw-bold fs-3 ms-3">{{user_obj.username}}</h5>
+        </div>
+
+    </div>
+    <div class="message-area text-white py-5 px-3 rounded flex-grow-1" id="chat-body">
+        {% for m in msg_obj %}
+        {% if m.source == request.user.username %}
+            <div class="msg-sent">
+                {% if m.file %}
+                <div class="attachment d-sm-flex w-auto">
+                    <button class="btn attach shadow-none"><i class="bi bi-file-earmark-fill fs-2 text-white"></i></button>
+                    <div class="file" style="overflow: hidden;">
+                        <h5><a href="{% url 'download_file' m.id %}" download class="fs-5 w-auto text-dark" style="overflow: hidden;">{{m.file}}</a></h5>
+                        <span>24kb</span>
+                    </div>
+                </div>
+                {% endif %}
+                <span class="msg">{{m.msg}}</span>
+                <span class="timestamp">{{m.time|time:'H:i'}}</span>
+            </div>
+        {% else %}
+            <div class="msg-receive">
+                {% if m.file %}
+                <div class="attachment w-auto d-flex">
+                    <button class="btn attach shadow-none"><i class="bi bi-file-earmark-fill fs-2 text-white"></i></button>
+                    <div class="file " style="overflow: hidden;">
+                        <h5><a href="{% url 'download_file' m.id %}" download class="fs-5 w-auto text-dark" style="overflow: hidden;">{{m.file}}</a></h5>
+                        <span>24kb</span>
+                    </div>
+                </div>
+                {% endif %}
+                <span class="msg" id="msg_{{m.id}}">{{m.msg}}</span>
+                <span class="timestamp">{{m.time|time:'H:i'}}</span>
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div class="p-3 d-flex">
+        <div class="input-group w-auto rounded p-0">
+            <input type="file" class="form-control d-none rounded" id="file-input" aria-describedby="file-tooltip" multiple>
+            <label for="file-input" type="button" class="btn btn-secondary p-0 rounded" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="send Files">
+              <i class="bi bi-paperclip text-white fs-5"></i>
+            </label>
+            <div id="file-tooltip" class="text-white bg-dark w-auto"></div>
+        </div>
+        <input type="text" class="shadow-none rounded w-100 mx-2" id="msg-box" required>
+        <input type="hidden" id="message-id" value="{{ user_obj.id }}"> 
+        <button class="btn btn-success" id="msg_send" type="submit"><i class="bi bi-send-fill text-white"></i></button>
+    </div>
+    <div class="bottom-nav justify-content-around align-items-center py-2">
+        <i class="bi bi-bell-fill text-white fs-4 fw-bold">
+            <span class="badge bg-primary fs-6 rounded">{% if notify|length > 0 %}{{ notify|length }}{% endif %}</span>
+        </i>
+        <i class="bi bi-person-plus-fill text-white fs-4 fw-bold"></i>
+         
+        <a href="{% url 'logout' %}"><i class="bi bi-box-arrow-right text-white fs-4 fw-bold"></i></a>
+    </div>
+</div>
+
+{{user_obj.id|json_script:"json-username"}}
+{{request.user.username|json_script:"json-msg-username"}}
+{% endblock %}

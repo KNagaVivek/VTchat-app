@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTchat</title>
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            text-align: center;
+            background: rgb(11, 21, 30);
+            border-radius: 10px;
+            width: 500px;
+        }
+        .form-floating input{
+            color: #fff !important;   
+        }
+        input::placeholder {
+            color: transparent !important;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" class="form-container p-5">
+        {% csrf_token %}
+        <h1 class="text-center mb-5">Register</h1>
+
+        {% for i in messages %}
+        <div class="alert alert-warning d-flex align-items-center alert-dismissible fade show" role="alert">
+            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div> {{i}}</div>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        
+        <!-- <div class="d-sm-flex align-items-center gap-4 w-100 pt-3">
+            <div class="form-floating mb-3 w-100">
+                <input type="text" class="form-control" name="first_name" id="floatingFName" placeholder="First Name">
+                <label for="floatingFName">First Name</label>
+              </div>
+              
+              <div class="form-floating mb-3 w-100">
+                <input type="text" class="form-control" name="last_name" id="floatingLName" placeholder="Last Name">
+                <label for="floatingLName">Last Name</label>
+              </div>
+        </div>
+        <div class="form-floating mb-4">
+            <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+          </div>
+        
+          <div class="form-floating mb-4">
+            <input type="password" class="form-control" name="password1" id="floatingPassword" placeholder="Password" >
+            <label for="floatingPassword">Password</label>
+        </div>
+        
+        <div class="form-floating">
+            <input type="password" class="form-control" name="password2" id="floatingCPassword" placeholder="Password" >
+            <label for="floatingCPassword">Confirm Password</label>
+        </div> -->
+
+        {% for field in Form %}
+            {% if field.errors %}
+                <div class="form-floating mb-3 w-100">
+                        {{field}}
+                        <label for="{{field.id_for_label}}">{{field.label}}</label>
+                </div>
+                {% for i in field.errors %}
+                <div class="alert alert-warning d-flex align-items-center alert-dismissible fade show" role="alert">
+                    <div> {{i}}</div>
+                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="form-floating mb-3 w-100">
+                    {{field}}
+                    <label for="{{field.id_for_label}}">{{field.label}}</label>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary my-4 w-100">Register</button>
+        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </form>
+</body>
+</html>
