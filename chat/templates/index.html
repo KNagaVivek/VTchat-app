@@ -40,7 +40,7 @@
                       </div>
                 </form>
             
-                <div class="list-group m-2 flex-grow-1" id="friend-list">
+                <div class="list-group m-2 flex-grow-1" id="friend-list sm-mb-space">
                     {% if friends_data %}
                         {% for friend, friend_profile_pic in friends_data %}
                         <a href="{% url 'chat' username=friend.username %}" class="list-group-item m-2 d-flex justify-content-between align-items-start rounded {% if user_obj.username == friend.username %}active{% endif %}" data-friend-name="{{ friend.username }}">
@@ -71,7 +71,7 @@
                         </i>
                         <i class="bi bi-person-plus-fill text-white fs-4 fw-bold"></i>
                          
-                        <a href="{% url 'logout' %}"><i class="bi bi-box-arrow-right text-white fs-4 fw-bold"></i></a>
+                        <a href="{% url 'logout' %}" class="text-decoration-none"><i class="bi bi-box-arrow-right text-white fs-4 fw-bold"></i></a>
                     </div>
             </div>
 

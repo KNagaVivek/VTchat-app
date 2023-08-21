@@ -10,7 +10,7 @@
         <h5 class="ms-1 fw-bold fs-3 text-center w-100">Suggestions</h5>
         <div class="w-100"></div>
     </div>
-    <div class="my-3 mx-3 px-5 list-group flex-grow-1">
+    <div class="my-3 mx-3 px-5 list-group flex-grow-1" id="sm-mb-space">
         {% if friends|length > 0 %}
             {% for frnd in friends %}
             <li class="list-group-item d-flex justify-content-between align-items-center py-3 m-2 rounded">
@@ -39,7 +39,7 @@
         </i>
         <i class="bi bi-person-plus-fill text-white fs-4 fw-bold"></i>
          
-        <a href="{% url 'logout' %}"><i class="bi bi-box-arrow-right text-white fs-4 fw-bold"></i></a>
+        <a href="{% url 'logout' %}" class="text-decoration-none"><i class="bi bi-box-arrow-right text-white fs-4 fw-bold"></i></a>
     </div>
 </div>
 

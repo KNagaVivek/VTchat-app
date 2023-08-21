@@ -147,7 +147,7 @@ input::placeholder {
 .attachment {
     display: flex;
     flex-wrap: nowrap;
-    align-items: top;
+    align-items: center;
     border-bottom: 1px solid white;
 }
 .attachment .text {
@@ -191,10 +191,16 @@ input::placeholder {
     .friends i {
         display: none;
     }
+    #sm-mb-space {
+        margin-bottom: 3em;
+    }
     .bottom-nav {
         background: var(--tx-2);
         display: flex !important;
         width: 100%;
+        position: fixed;
+        bottom: 0;
+        z-index: 10;
     }
     .bottom-nav i {
         display: flex;

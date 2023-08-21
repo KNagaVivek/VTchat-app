@@ -62,11 +62,7 @@ $(document).ready(function() {
     if (fileInput.files.length > 0) {
       const fileName = fileInput.files[0].name;
       tooltip.innerHTML = fileName;
-    
-
-    } else {
-      tooltip.innerHTML = 'Choose';
-    }
+    } 
   });
   
 
@@ -131,7 +127,6 @@ socket.onmessage = function(e){
                         '<button class="btn attach shadow-none"><i class="bi bi-file-earmark-fill fs-2 text-white"></i></button>' +
                         '<div class="file" style="overflow: hidden;">' +
                         '<p><a href="/static/'+file_input.files[0].name+'" download class="fs-5 w-auto text-dark" style="overflow: hidden;">'+file_input.files[0].name+'</a></p>'+
-                            '<span>24kb</span> ' +
                         '</div>' +
                     '</div>'
         }
@@ -142,6 +137,10 @@ socket.onmessage = function(e){
                                 '<span class="msg">'+ data.message +'</span>'+
                                 '<span class="timestamp">' + new Date().toLocaleTimeString(); + '</span>' +
                                 '</div>'
+        console.log("Hello");
+        file_input.value = "";
+        document.getElementById('file-tooltip').innerHTML = "";
+        console.log("Worlds");
     }else{
        msg_body.innerHTML += '<div class="msg-receive">' + 
                                 '<span class="msg">'+ data.message +'</span>'+
