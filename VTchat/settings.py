@@ -155,7 +155,7 @@ CHANNEL_LAYERS = {
         "default": {
             "BACKEND": "channels_redis.core.RedisChannelLayer",
             "CONFIG": {
-                "hosts": [("vtchat-cluster.pccrhy.ng.0001.apse2.cache.amazonaws.com", 6379)],
+                "hosts": [("vtchat-cluster.pccrhy.ng.0001.apse2.cache.amazonaws.com:6379", 6379)],
             },
         },
     }
