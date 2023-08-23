@@ -152,13 +152,13 @@ AUTH_USER_MODEL = 'chat.User'
 ASGI_APPLICATION = 'VTchat.asgi.application'
 
 CHANNEL_LAYERS = {
-        "default": {
-            "BACKEND": "channels_redis.core.RedisChannelLayer",
-            "CONFIG": {
-                "hosts": [("vtchat.pccrhy.ng.0001.apse2.cache.amazonaws.com", 6379)],
-            },
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('vtchat.pccrhy.ng.0001.apse2.cache.amazonaws.com', 6379)],
         },
-    }
+    },
+}
 
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
