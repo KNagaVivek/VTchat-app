@@ -17,6 +17,9 @@ from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 # Create your views here.
 
+def health_check(request):
+    return HttpResponse(status=200)
+
 def get_friends_data(user):
     cur_user = Profile.objects.get(user=user)
     friends = cur_user.friends.all()
